@@ -1,3 +1,5 @@
+// finished!!
+
 function gameLab2() {
 	let userName;
 	let weapon;
