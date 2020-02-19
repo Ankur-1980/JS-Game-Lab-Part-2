@@ -1,6 +1,7 @@
+let weapon;
 function gameLab2() {
 	let userName;
-	let weapon;
+	// let weapon;
 	function startGame() {
 		// play the game, yes or no
 		let playGame = confirm('Do you dare challenge The Almighty Grant?');
@@ -34,13 +35,12 @@ function gameLab2() {
 
 	// begin combat sequence
 	function startCombat() {
-		// global variables
 		let grantHP = getArmor();
 		let wins = 0;
 		let flight = false;
 		let userHP = 40;
-        let weapon = weaponType();
-        let plural = 'time';
+		let weapon = weaponType();
+		let plural = 'time';
 
 		let defeatQuotes = [
 			`In my perfect world, there would exist no one as weak as you, ${userName}!`,
@@ -84,30 +84,41 @@ function gameLab2() {
 			// console.warn(`${userName} has ${userHP} remaining`);
 			// console.error(
 			// 	`Grant has been ${weapon.attack} with ${userName}'s ${weapon.type}.\n\tGrant's HP = ${grantHP}`
-            // );
-            
-            // user damage
-            if (userHP > 0) {
-                console.warn(`${userName} has ${userHP} remaining`);
-            } else if (userHP <= 0) {
-                // console.warn(`${userName}, you lose, you get nothing, good day!`);
-			console.error(`${userName}, you have been defeated by THE ALMIGHTY GRANT!!!`);
-            console.error(randomDefeatQuote);
-            break;
-            }
+			// );
 
-            if (grantHP > 0 ) {
-               console.error(`The Almighty Greg has ${grantHP} remaining`);
-            } else if (grantHP <=0) { 
-                console.error(`You've knocked down The Almighty Grant.`);
-                if (wins > 1)
+			// user damage
+			if (userHP > 0) {
+				console.warn(`${userName} has ${userHP} remaining`);
+			} else if (userHP <= 0) {
+				// console.warn(`${userName}, you lose, you get nothing, good day!`);
+				console.error(`${userName}, you have been defeated by THE ALMIGHTY GRANT!!!`);
+				console.error(randomDefeatQuote);
+				break;
+			}
 
-            }
+			if (grantHP > 0) {
+				console.error(`The Almighty Greg has ${grantHP} remaining`);
+			} else if (grantHP <= 0) {
+				console.error(`You've knocked down The Almighty Grant.`);
+				if (wins > 1) {
+					plural = 'times';
+				}
 
-        
-           
+				if (grantHP <= 2) {
+					console.error(
+						`The Almighty Grant has been defeated ${wins} ${plural}. But like the saying goes, The Almighty Grant gets knocked down, but he gets up again.`
+					);
+				} else if (wins === 3 && userHP <= 0) {
+					console.error(
+						`Double KO!!! ${userName} & The Almighty Grant killed each other at the same time.\n There are no winners today.`
+					);
+				} else if (wins === 3 && userHP > 0) {
+					console.log(`${userName} has defeated The Almighty Grant!`);
+					console.error(randomVictoryQuote);
+				}
+			}
 
-            /*
+			/*
 			if (grantHP <= 0) {
 				console.error(`WEAK! You\'re going to have to do better than that.`);
 				grantHP = 10;
@@ -128,86 +139,92 @@ function gameLab2() {
 		}
 	}
 */
-	function weaponType() {
-		let weaponType = prompt('Select your weapon:\nBare Hands\nSword\nBattle-Axe\nAK-47').toLowerCase();
-		if (weaponType === null || weaponType === '') {
-			alert('Seriously!? Just answer the question');
-			getArmor();
-			return;
-		}
-		weaponType = weaponType.toLowerCase();
-		switch (weaponType) {
-			case 'bare hands':
-				weapon = { type: 'bare hands', attack: 'punched' };
-				break;
-			case 'sword':
-				weapon = { type: 'sword', attack: 'hacked' };
-				break;
-			case 'battle-axe':
-				weapon = { type: 'battle-axe', attack: 'gashed' };
-				break;
-			case 'ak-47':
-				weapon = { type: 'ak-47', attack: 'shot' };
-				break;
-			default:
-				weapon = { type: 'rocks', attack: 'hit' };
-				console.error("You're going to throw rocks at me? Fine, good luck");
-		}
-		return weapon;
-	}
-	function getDamage() {
-		let weaponDamage;
-		switch (weapon.type) {
-			case 'bare hands':
-				weaponDamage = Math.floor(Math.random() * 2 + 1);
-				break;
-			case 'sword':
-				weaponDamage = Math.floor(Math.random() * 3 + 2);
-				break;
-			case 'battle-axe':
-				weaponDamage = Math.floor(Math.random() * 6 + 4);
-				break;
-			case 'ak-47':
-				weaponDamage = Math.floor(Math.random() * 50 + 25);
-				break;
-			case 'rocks':
-				weaponDamage = Math.floor(Math.random() + 1);
-				break;
-		}
-		return weaponDamage;
-	}
-	function getArmor() {
-		let armorType = prompt(
-			'The Almighty Grant will let you decide how much armor The Almighty Grant will wear into battle:\nAll the Armor\nA little Extra\nNormal\nNone'
-		);
-		let grantHP = 10;
+			function weaponType() {
+				let weaponType = prompt('Select your weapon:\nBare Hands\nSword\nBattle-Axe\nAK-47').toLowerCase();
 
-		if (armorType === null || armorType === '') {
-			alert('Oh come now, answer the question!');
-			getArmor();
-			return;
-		}
-		armorType = armorType.toLowerCase();
+				if (weaponType === null || weaponType === '') {
+					alert('Seriously!? Just answer the question');
+					getArmor();
+					return;
+				}
+				weaponType = weaponType.toLowerCase();
+				switch (weaponType) {
+					case 'bare hands':
+						weapon = { type: 'bare hands', attack: 'punched' };
+						break;
+					case 'sword':
+						weapon = { type: 'sword', attack: 'hacked' };
+						break;
+					case 'battle-axe':
+						weapon = { type: 'battle-axe', attack: 'gashed' };
+						break;
+					case 'ak-47':
+						weapon = { type: 'ak-47', attack: 'shot' };
+						break;
+					default:
+						weapon = { type: 'rocks', attack: 'hit' };
+						console.error("You're going to throw rocks at me? Fine, good luck");
+				}
+				return weapon;
+			}
+			function getDamage() {
+				let weaponDamage;
+				switch (weapon.type) {
+					case 'bare hands':
+						weaponDamage = Math.floor(Math.random() * 2 + 1);
+						break;
+					case 'sword':
+						weaponDamage = Math.floor(Math.random() * 3 + 2);
+						break;
+					case 'battle-axe':
+						weaponDamage = Math.floor(Math.random() * 6 + 4);
+						break;
+					case 'ak-47':
+						weaponDamage = Math.floor(Math.random() * 50 + 25);
+						break;
+					case 'rocks':
+						weaponDamage = Math.floor(Math.random() + 1);
+						break;
+				}
+				return weaponDamage;
+			}
+			function getArmor() {
+				let armorType = prompt(
+					'The Almighty Grant will let you decide how much armor The Almighty Grant will wear into battle:\nAll the Armor\nA little Extra\nNormal\nNone'
+				);
+				let grantHP = 10;
 
-		switch (armorType) {
-			case 'all the armor':
-				grantHP = 100;
-				return grantHP;
-			case 'a little extra':
-				grantHP = 20;
-				return grantHP;
-			case 'normal':
-				grantHP = 10;
-				return grantHP;
-			case 'none':
-				grantHP = 1;
-				return grantHP;
+				if (armorType === null || armorType === '') {
+					alert('Oh come now, answer the question!');
+					getArmor();
+					return;
+				}
+				armorType = armorType.toLowerCase();
 
-			default:
-				grantHP = 40;
-				return grantHP;
+				switch (armorType) {
+					case 'all the armor':
+						grantHP = 100;
+						return grantHP;
+					case 'a little extra':
+						grantHP = 20;
+						return grantHP;
+					case 'normal':
+						grantHP = 10;
+						return grantHP;
+					case 'none':
+						grantHP = 1;
+						return grantHP;
+
+					default:
+						grantHP = 40;
+						return grantHP;
+				}
+			}
+			startGame();
 		}
 	}
+
 	startGame();
 }
+
 gameLab2();
