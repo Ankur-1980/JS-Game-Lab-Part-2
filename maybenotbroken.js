@@ -39,7 +39,8 @@ function gameLab2() {
 		let wins = 0;
 		let flight = false;
 		let userHP = 40;
-		let weapon = weaponType();
+        let weapon = weaponType();
+        let plural = 'time';
 
 		let defeatQuotes = [
 			`In my perfect world, there would exist no one as weak as you, ${userName}!`,
@@ -72,7 +73,7 @@ function gameLab2() {
 			let fightFlight = confirm("Are you steppin'?\n[OK]\nOr are you runnin'?\n[CANCEL]");
 			if (fightFlight === false) {
 				flight = false;
-				console.log("Run away COWARD!!! You know you're no match for THE ALMIGHTY GRANT!!!");
+				console.error("Run away COWARD!!! You know you're no match for THE ALMIGHTY GRANT!!!");
 				break;
 			}
 			// random damage for user according to rubric
@@ -80,12 +81,35 @@ function gameLab2() {
 			// getDamage function uses weapon selection to adjust the damage dealt
 			grantHP -= getDamage(weapon.type);
 			// log remaining health for user
-			console.error(`${userName} has ${userHP} remaining`);
-			console.log(
-				`Grant has been ${weapon.attack} with ${userName}'s ${weapon.type}.\n\tGrant's HP = ${grantHP}`
-			);
+			// console.warn(`${userName} has ${userHP} remaining`);
+			// console.error(
+			// 	`Grant has been ${weapon.attack} with ${userName}'s ${weapon.type}.\n\tGrant's HP = ${grantHP}`
+            // );
+            
+            // user damage
+            if (userHP > 0) {
+                console.warn(`${userName} has ${userHP} remaining`);
+            } else if (userHP <= 0) {
+                // console.warn(`${userName}, you lose, you get nothing, good day!`);
+			console.error(`${userName}, you have been defeated by THE ALMIGHTY GRANT!!!`);
+            console.error(randomDefeatQuote);
+            break;
+            }
+
+            if (grantHP > 0 ) {
+               console.error(`The Almighty Greg has ${grantHP} remaining`);
+            } else if (grantHP <=0) { 
+                console.error(`You've knocked down The Almighty Grant.`);
+                if (wins > 1)
+
+            }
+
+        
+           
+
+            /*
 			if (grantHP <= 0) {
-				console.warn(`WEAK! You\'re going to have to do better than that.`);
+				console.error(`WEAK! You\'re going to have to do better than that.`);
 				grantHP = 10;
 				wins++;
 			}
@@ -103,7 +127,7 @@ function gameLab2() {
 			console.warn(randomDefeatQuote);
 		}
 	}
-
+*/
 	function weaponType() {
 		let weaponType = prompt('Select your weapon:\nBare Hands\nSword\nBattle-Axe\nAK-47').toLowerCase();
 		if (weaponType === null || weaponType === '') {
