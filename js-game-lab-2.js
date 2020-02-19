@@ -1,4 +1,3 @@
-let weapon = '';
 function javaLab2() {
 	let userName;
 
@@ -81,6 +80,7 @@ function javaLab2() {
 					break;
 				}
 				// random damage for user
+				let weapon;
 				userHP -= Math.floor(Math.random() * 5 + 1);
 
 				// getDamage function uses weapon selection to adjust the damage dealt
