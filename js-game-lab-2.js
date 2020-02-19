@@ -71,11 +71,41 @@
 			);
 		} else if (wins === 3 && userHP > 0) {
 			console.log(`${userName} has defeated The Almighty Grant!`);
-			console.error(randomVictoryQuote());
+			console.error(randomVictoryQuote);
 		} else if (wins < 3) {
-			// console.warn(`${userName}, you lose, you get nothing, good day sir!`);
-			console.warn(randomDefeatQuote());
+			// console.warn(`${userName}, you lose, you get nothing, good day!`);
+			console.warn(`${userName}, you have been defeated by THE ALMIGHTY GRANT!!!`);
+			console.warn(randomDefeatQuote);
 		}
+		// random quotes for when the user is defeated
+		// userName is coming up undefined, unclear as to why
+		let defeatQuotes = [
+			`In my perfect world, there would exist no one as weak as you, ${userName}!`,
+			`${userName}, can\'t you see how pathetic you are?`,
+			`Learn from your defeat, ${userName}`,
+			`Next time I suggest fighting back, ${userName}`,
+			`${userName} are a weakling!`,
+			`${userName}, that was a pathetic`,
+			`For wimps like ${userName}, using my full strength is unnecessary.`,
+			`${userName}, that was your best?`,
+			`Don't be such a baby, ${userName}!`,
+			`${userName}, even by the lowest standards, that was really bad!`,
+		];
+		// random quotes for when the user wins
+		let victoryQuotes = [
+			`No matter how much you try, you still won't beat me`,
+			`Did you believe your pitiful powers could defeat me`,
+			`Weak! You're going to have to do better than that.`,
+			`My apologies, but I don't have any time to waste playing with you.`,
+			`You're all bite and no bark, Grant. This fight almost bored me to tears.`,
+			`Did you let me win? No one can be THAT bad!`,
+			`L-O-S-E-R`,
+			`Don't waste my time with your weak skills, scrub!`,
+			`What's the matter? You don't like losing? Well, that's not my problem. Ha, ha, ha, ha, ha!`,
+		];
+		// how the random quotes are being generated
+		randomDefeatQuote = defeatQuotes[Math.floor(Math.random() * defeatQuotes.length)];
+		randomVictoryQuote = victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
 	}
 
 	function weaponType() {
@@ -128,9 +158,9 @@
 	}
 	function getArmor() {
 		let armorType = prompt(
-			'How much armor are you wearing going into battle:\nAll the Armor\nNormal\nBarely Any\nNone'
+			"I'll let you decide how much armor I'll wear into battle:\nAll the Armor\nA little Extra\nNormal\nNone"
 		);
-		let userHP = 40;
+		let grantHP = 10;
 
 		if (armorType === null || armorType === '') {
 			alert('Oh come now, answer the question!');
@@ -141,54 +171,22 @@
 
 		switch (armorType) {
 			case 'all the armor':
-				userHP = 100;
-				return userHP;
+				grantHP = 100;
+				return grantHP;
+			case 'a little extra':
+				grantHP = 20;
+				return grantHP;
 			case 'normal':
-				userHP = 40;
-				return userHP;
-			case 'barely any':
-				userHP = 20;
-				return userHP;
+				grantHP = 10;
+				return grantHP;
 			case 'none':
-				userHP = 1;
-				return userHP;
+				grantHP = 1;
+				return grantHP;
 
 			default:
-				userHP = 40;
-				return userHP;
+				grantHP = 40;
+				return grantHP;
 		}
 	}
-	let defeatQuotes = [
-		`In my perfect world, there would exist no one as weak as you, ${userName}!`,
-		`${userName}, can\'t you see how pathetic you are?`,
-		`Learn from your defeat, ${userName}`,
-		`Next time I suggest fighting back, ${userName}`,
-		`${userName} are a weakling!`,
-		`${userName}, that was a pathetic`,
-		`For wimps like ${userName}, using my full strength is unnecessary.`,
-		`${userName}, that was your best?`,
-		`Don't be such a baby, ${userName}!`,
-		`${userName}, even by the lowest standards, that was really bad!`,
-	];
-
-	let victoryQuotes = [
-		`No matter how much you try, you still won't beat me`,
-		`Did you believe your pitiful powers could defeat me`,
-		`Weak! You're going to have to do better than that.`,
-		`My apologies, but I don't have any time to waste playing with you.`,
-		`You're all bite and no bark, Grant. This fight almost bored me to tears.`,
-		`Did you let me win? No one can be THAT bad!`,
-		`L-O-S-E-R`,
-		`Don't waste my time with your weak skills, scrub!`,
-		`What's the matter? You don't like losing? Well, that's not my problem. Ha, ha, ha, ha, ha!`,
-	];
-
-	function randomDefeatQuote() {
-		defeatQuotes[Math.floor(Math.random() * defeatQuotes.length)];
-	}
-	function randomVictoryQuote() {
-		victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
-	}
-
 	startGame();
 })();
