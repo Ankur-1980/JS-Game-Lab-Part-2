@@ -35,22 +35,17 @@ function gameLab2() {
 	// begin combat sequence
 	function startCombat() {
 		class Grant {
-			constructor(name, health) {
-				this.name = amGrant;
+			constructor(allMightyGrant, grantHP) {
+				this.name = allMightyGrant;
 				this.health = grantHP;
-				grantHP = 10;
-				grantDamage = amGrant - getDamage();
-			
-			getGrantHealth() {
-				console.log(this.name, 'health is', this.health);
+				let grantHP = this.health - getDamage(weapon.type);
 			}
 		}
-	}
 
-		class User {
-			constructor(name, health) {
-				this.name = userName;
-				this.health = userHP;
+		class Player {
+			constructor(userName, userHP) {
+				this.userName = userName;
+				this.userHP = userHP;
 				user = 40;
 				userHP = user - getDamage();
 			}
@@ -65,7 +60,7 @@ function gameLab2() {
 		let flight = false;
 		let userHP = getArmor();
 		let weapon = weaponType();
-		
+
 		let defeatQuotes = [
 			`In my perfect world, there would exist no one as weak as you, ${userName}!`,
 			`${userName}, can\'t you see how pathetic you are?`,
