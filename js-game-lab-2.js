@@ -22,7 +22,8 @@
 			userName = prompt("Don't be coy, tell me your name");
 		}
 
-		if (userName === '') {
+		// do not allow a blank or cancel
+		if (userName === null || userName === '') {
 			while (userName === '') {
 				console.warn("%c EXCUSE ME! You're going to ignore me?", 'background: #000; color: #f00');
 				userName = prompt('I asked you what your name was.');
