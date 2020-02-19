@@ -35,10 +35,10 @@ function gameLab2() {
 	// begin combat sequence
 	function startCombat() {
 		// global variables
-		let grantHP = 10;
+		let grantHP = getArmor();
 		let wins = 0;
 		let flight = false;
-		let userHP = getArmor();
+		let userHP = 40;
 		let weapon = weaponType();
 
 		let defeatQuotes = [
