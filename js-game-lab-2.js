@@ -50,7 +50,9 @@
 				console.log("Run away COWARD!!! You know you're no match for THE ALMIGHTY GRANT!!!");
 				break;
 			}
+			// random damage for user according to rubric
 			userHP -= Math.floor(Math.random() * 5 + 1);
+			// getDamage function uses weapon selection to adjust the damage dealt
 			grantHP -= getDamage(weapon.type);
 			// log remaining health for Grant & user
 			console.error(`${userName} has ${userHP} remaining`);
@@ -58,7 +60,7 @@
 				`Grant has been ${weapon.attack} with ${userName}'s ${weapon.type}.\n\tGrant's HP = ${grantHP}`
 			);
 			if (grantHP <= 0) {
-				console.warn(`I'm not dead yet, let's do this again!`);
+				console.warn(`WEAK! You\'re going to have to do better than that.`);
 				grantHP = 10;
 				wins++;
 			}
@@ -69,8 +71,10 @@
 			);
 		} else if (wins === 3 && userHP > 0) {
 			console.log(`${userName} has defeated The Almighty Grant!`);
+			console.error(randomVictoryQuote());
 		} else if (wins < 3) {
-			console.warn(`${userName}, you lose, you get nothing, good day sir!`);
+			// console.warn(`${userName}, you lose, you get nothing, good day sir!`);
+			console.warn(randomDefeatQuote());
 		}
 	}
 
@@ -117,7 +121,7 @@
 				weaponDamage = Math.floor(Math.random() * 50 + 25);
 				break;
 			case 'rocks':
-				weaponDamage = Math.floor(Math.random());
+				weaponDamage = Math.floor(Math.random() + 1);
 				break;
 		}
 		return weaponDamage;
@@ -154,5 +158,37 @@
 				return userHP;
 		}
 	}
+	let defeatQuotes = [
+		`In my perfect world, there would exist no one as weak as you, ${userName}!`,
+		`${userName}, can\'t you see how pathetic you are?`,
+		`Learn from your defeat, ${userName}`,
+		`Next time I suggest fighting back, ${userName}`,
+		`${userName} are a weakling!`,
+		`${userName}, that was a pathetic`,
+		`For wimps like ${userName}, using my full strength is unnecessary.`,
+		`${userName}, that was your best?`,
+		`Don't be such a baby, ${userName}!`,
+		`${userName}, even by the lowest standards, that was really bad!`,
+	];
+
+	let victoryQuotes = [
+		`No matter how much you try, you still won't beat me`,
+		`Did you believe your pitiful powers could defeat me`,
+		`Weak! You're going to have to do better than that.`,
+		`My apologies, but I don't have any time to waste playing with you.`,
+		`You're all bite and no bark, Grant. This fight almost bored me to tears.`,
+		`Did you let me win? No one can be THAT bad!`,
+		`L-O-S-E-R`,
+		`Don't waste my time with your weak skills, scrub!`,
+		`What's the matter? You don't like losing? Well, that's not my problem. Ha, ha, ha, ha, ha!`,
+	];
+
+	function randomDefeatQuote() {
+		defeatQuotes[Math.floor(Math.random() * defeatQuotes.length)];
+	}
+	function randomVictoryQuote() {
+		victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
+	}
+
 	startGame();
 })();
