@@ -80,7 +80,7 @@ function javaLab2() {
 					break;
 				}
 				// random damage for user
-				let weapon;
+
 				userHP -= Math.floor(Math.random() * 5 + 1);
 
 				// getDamage function uses weapon selection to adjust the damage dealt
@@ -113,10 +113,9 @@ function javaLab2() {
 							`%c Double KO!!! ${userName} & The Almighty Grant killed each other at the same time.\n There are no winners today. 'background: #000; color: #f00'`
 						);
 						break;
-					} else if (wins === 3 && userHP > 0);
-					{
-						console.log(`${userName} has defeated The Almighty Grant!`);
-						console.error(randomVictoryQuote);
+					} else if (wins === 3 && userHP > 0) {
+						console.warn(`${userName} has defeated The Almighty Grant!`);
+						console.warn(randomVictoryQuote);
 						break;
 					}
 				}
@@ -141,7 +140,7 @@ function javaLab2() {
 				return;
 			}
 	*/
-
+				let weapon;
 				switch (weaponType) {
 					case 'bare hands':
 						weapon = { type: 'bare hands', attack: 'punched' };
