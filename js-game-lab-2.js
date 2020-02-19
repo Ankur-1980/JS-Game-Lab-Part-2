@@ -33,31 +33,7 @@ function gameLab2() {
 	}
 
 	// begin combat sequence
-	function startCombat() {
-		class Grant {
-			constructor(name, health) {
-				this.name = amGrant;
-				this.health = grantHP;
-				grantHP = 10;
-				grantDamage = amGrant - getDamage();
-			
-			getGrantHealth() {
-				console.log(this.name, 'health is', this.health);
-			}
-		}
-	}
-
-		class User {
-			constructor(name, health) {
-				this.name = userName;
-				this.health = userHP;
-				user = 40;
-				userHP = user - getDamage();
-			}
-			getUserHealth() {
-				console.log(this.name, 'health is', this.userHP);
-			}
-		}
+	
 
 		// global variables
 		let grantHP = 10;
