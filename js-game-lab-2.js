@@ -25,7 +25,7 @@ function gameLab2() {
 		// do not allow a blank or cancel
 		if (userName === null || userName === '') {
 			while (userName === '') {
-				console.warn("%c EXCUSE ME! You're going to ignore me?", 'background: #000; color: #f00');
+				console.error("%c EXCUSE ME! You're going to ignore me?", 'background: #000; color: #f00');
 				userName = prompt('I asked you what your name was.');
 			}
 		}
@@ -33,15 +33,15 @@ function gameLab2() {
 	}
 
 	// begin combat sequence
-	
-
+	function startCombat() {
 		// global variables
-		let grantHP = 10;
+		let grantHP = getArmor();
 		let wins = 0;
 		let flight = false;
-		let userHP = getArmor();
+		let userHP = 40;
 		let weapon = weaponType();
-		
+		let plural = 'time';
+
 		let defeatQuotes = [
 			`In my perfect world, there would exist no one as weak as you, ${userName}!`,
 			`${userName}, can\'t you see how pathetic you are?`,
@@ -81,40 +81,79 @@ function gameLab2() {
 			// getDamage function uses weapon selection to adjust the damage dealt
 			grantHP -= getDamage(weapon.type);
 			// log remaining health for Grant & user
-			console.error(`${userName} has ${userHP} remaining`);
-			console.log(
-				`Grant has been ${weapon.attack} with ${userName}'s ${weapon.type}.\n\tGrant's HP = ${grantHP}`
-			);
-			if (grantHP <= 0) {
-				console.warn(`WEAK! You\'re going to have to do better than that.`);
+			if (userHP > 0) {
+				console.log(`${userName} has ${userHP} health left.`);
+			} else if (userHP <= 0) {
+				console.error(`You have been defeated by THE ALMIGHTY GRANT!!!`);
+				console.error(randomDefeatQuote);
+				break;
+			}
+
+			if (grantHP > 0) {
+				console.error(`The Almighty Grant has ${grantHP} health left.`);
+			} else if (grantHP <= 0) {
+				console.error(`WEAK! You\'re going to have to do better than that. You\'ve only knocked me down`);
 				grantHP = 10;
 				wins++;
-			}
-		}
-		if (wins === 3 && userHP <= 0) {
-			console.error(
-				`Double KO!!! ${userName} & The Almighty Grant killed each other at the same time.\n There are no winners today.`
-			);
-		} else if (wins === 3 && userHP > 0) {
+				if (wins > 1) {
+					plural = 'times';
+				}
+			} else if (wins <= 2) {
+				console.log(`${userName} has defeated The Almighty Grant ${wins} ${plural}.`);
+				console.error(`As they say, when I get knocked down, I get up again.`);
+			} else if (wins === 3 && userHP <= 0) {
+				console.warn(
+					`%c Double KO!!! ${userName} & The Almighty Grant killed each other at the same time.\n There are no winners today. 'background: #000; color: #f00'`
+				);
+			} else wins === 3 && userHP > 0;
 			console.log(`${userName} has defeated The Almighty Grant!`);
 			console.error(randomVictoryQuote);
-		} else if (wins < 3) {
-			// console.warn(`${userName}, you lose, you get nothing, good day!`);
-			console.warn(`${userName}, you have been defeated by THE ALMIGHTY GRANT!!!`);
-			console.warn(randomDefeatQuote);
 		}
-		// random quotes for when the user is defeated
-		// userName is coming up undefined, unclear as to why
 	}
+	// 	console.error(`${userName} has ${userHP} remaining`);
+	// 	console.log(
+	// 		`Grant has been ${weapon.attack} with ${userName}'s ${weapon.type}.\n\tGrant's HP = ${grantHP}`
+	// 	);
+	// 	if (grantHP <= 0) {
+	// 		console.error(`WEAK! You\'re going to have to do better than that.`);
+	// 		grantHP = 10;
+	// 		wins++;
+	// 	}
+	// }
+	// if (wins === 3 && userHP <= 0) {
+	// 	console.warn(
+	// 		`%c Double KO!!! ${userName} & The Almighty Grant killed each other at the same time.\n There are no winners today. 'background: #000; color: #f00'`
+	// 	);
+	// } else if (wins === 3 && userHP > 0) {
+	// 	console.log(`${userName} has defeated The Almighty Grant!`);
+	// 	console.error(randomVictoryQuote);
+	// } else if (wins < 3) {
+	// 	// console.error(`${userName}, you lose, you get nothing, good day!`);
+	// 	console.error(`You have been defeated by THE ALMIGHTY GRANT!!!`);
+	// 	console.error(randomDefeatQuote);
+	// }
 
 	function weaponType() {
-		let weaponType = prompt('Select your weapon:\nBare Hands\nSword\nBattle-Axe\nAK-47').toLowerCase();
-		if (weaponType === null || weaponType === '') {
+		let weaponType = prompt('Select your weapon:\nBare Hands\nSword\nBattle-Axe\nAK-47');
+		if (weaponType === null) {
 			alert('Seriously!? Just answer the question');
-			getArmor();
+			weaponType();
 			return;
 		}
 		weaponType = weaponType.toLowerCase();
+		/* I don't know what I'm doing wrong here
+		if (
+			weaponType != 'bare hands' ||
+			weaponType != 'sword' ||
+			weaponType != 'battle-axe' ||
+			weaponType != 'ak-47'
+		) {
+			alert('Say again? Do you have marbles in your mouth?');
+			weaponType();
+			return;
+		}
+*/
+
 		switch (weaponType) {
 			case 'bare hands':
 				weapon = { type: 'bare hands', attack: 'punched' };
@@ -134,6 +173,7 @@ function gameLab2() {
 		}
 		return weapon;
 	}
+
 	function getDamage() {
 		let weaponDamage;
 		switch (weapon.type) {
@@ -157,7 +197,7 @@ function gameLab2() {
 	}
 	function getArmor() {
 		let armorType = prompt(
-			'The Almighty Grant will let you decide how much armor The Almighty Grant will wear into battle:\nAll the Armor\nA little Extra\nNormal\nNone'
+			'How much armor shall The Almight Grant wear into battle? You decide\nAll the Armor\nA little Extra\nNormal\nNone'
 		);
 		let grantHP = 10;
 
@@ -166,7 +206,21 @@ function gameLab2() {
 			getArmor();
 			return;
 		}
+
 		armorType = armorType.toLowerCase();
+
+		/* I don't know what I'm doing wrong here
+		if (
+			armorType != 'all the armor' ||
+			armorType != 'a little extra' ||
+			armorType != 'normal' ||
+			armorType != 'none'
+		) {
+			alert("You're mumbling, could you speak a little more clearly");
+			getArmor();
+			return;
+		}
+*/
 
 		switch (armorType) {
 			case 'all the armor':
