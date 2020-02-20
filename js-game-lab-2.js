@@ -34,12 +34,13 @@ function javaLab2() {
 
 		// begin combat sequence
 		function startCombat() {
-			// global variables
-			let grantHP = getArmor();
+			// global-ish variables
+			let grantHP = getArmor(); // set the difficulty level
 			let wins = 0;
 			let flight = false;
 			let userHP = 40;
-			let weapon = weaponType();
+			let weapon = weaponType(); // increase the damage from the user
+			// change the word in a function later on
 			let plural = 'time';
 			// random quotes for when the user loses
 			let defeatQuotes = [
@@ -47,7 +48,7 @@ function javaLab2() {
 				`${userName}, can\'t you see how pathetic you are?`,
 				`Learn from your defeat, ${userName}`,
 				`Next time I suggest fighting back, ${userName}`,
-				`${userName} are a weakling!`,
+				`${userName}, you are a weakling!`,
 				`${userName}, that was a pathetic`,
 				`For wimps like ${userName}, using my full strength is unnecessary.`,
 				`${userName}, that was your best?`,
@@ -67,28 +68,29 @@ function javaLab2() {
 				`What's the matter? You don't like losing? Well, that's not my problem. Ha, ha, ha, ha, ha!`,
 			];
 			// random quote generator
-
 			let randomDefeatQuote = defeatQuotes[Math.floor(Math.random() * defeatQuotes.length)];
 			let randomVictoryQuote = victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
 
 			// loop for battle
 			while (userHP > 0 && wins < 3 && flight === false) {
+				// confirm instead of prompt for attack or retreat
 				let fightFlight = confirm("Are you steppin'?\n[OK]\nOr are you runnin'?\n[CANCEL]");
+				// Cancel returns false, which in this case means retreat
 				if (fightFlight === false) {
 					flight = false;
 					console.log("Run away COWARD!!! You know you're no match for THE ALMIGHTY GRANT!!!");
 					break;
 				}
 				// random damage for user
-
 				userHP -= Math.floor(Math.random() * 5 + 1);
 
-				// getDamage function uses weapon selection to adjust the damage dealt
+				// getDamage function uses weapon selection to adjust the damage dealt by the user
 				grantHP -= getDamage(weapon.type);
 
 				// User hits points
 				if (userHP > 0) {
 					console.log(`${userName} has ${userHP} health left.`);
+					// if the player loses all their hit points before Grant
 				} else if (userHP <= 0) {
 					console.error(`You have been defeated by THE ALMIGHTY GRANT!!!`);
 					console.error(randomDefeatQuote);
@@ -97,22 +99,31 @@ function javaLab2() {
 
 				// Grant hit points
 				if (grantHP > 0) {
+					// log Grant's HP
 					console.error(`The Almighty Grant has ${grantHP} health left.`);
+					// what happens when Grant's HP get at or below zero
 				} else if (grantHP <= 0) {
 					console.error(`WEAK! You\'re going to have to do better than that. You\'ve only knocked me down`);
+					// small flaw in what I did. Grant's health only goes to 10 on teh second and third loops.
 					grantHP = 10;
 					wins++;
+					// little piece of code to change a word to plural
 					if (wins > 1) {
 						plural = 'times';
 					}
+					// Grant gets back up
 					if (wins <= 2) {
 						console.log(`${userName} has defeated The Almighty Grant ${wins} ${plural}.`);
-						console.error(`As they say, when I get knocked down, I get up again.`);
+						console.error(
+							`As they say, when The Almighty Grant gets knocked down, The Almighty Grant gets up again.`
+						);
+						// what happens if both Grant and the user lose all their life at the same time.
 					} else if (grantHP <= 0 && userHP <= 0) {
 						console.warn(
 							`%c Double KO!!! ${userName} & The Almighty Grant killed each other at the same time.\n There are no winners today. 'background: #000; color: #f00'`
 						);
 						break;
+						// what happens when the user gets 3 wins
 					} else if (wins === 3 && userHP > 0) {
 						console.warn(
 							`There is no way he's getting back up this time. ${userName} has defeated The Almighty Grant!`
@@ -122,14 +133,18 @@ function javaLab2() {
 					}
 				}
 			}
+			// weapon selection to increase damage dealt by user
 			function weaponType() {
 				let weaponType = prompt('Select your weapon:\nBare Hands\nSword\nBattle-Axe\nAK-47');
+				// if the user hits cancel on the prompt it returns null. You can't ".toLowercase" on null. Instead of getting an error and stopping the code, this how to keep it going.
 				if (weaponType === null) {
 					alert('Seriously!? Just answer the question');
 					weaponType();
 					return;
 				}
+				// NOW convert the answer to lowercase
 				weaponType = weaponType.toLowerCase();
+
 				/* I don't know what I'm doing wrong here
 			if (
 				weaponType != 'bare hands' ||
@@ -142,6 +157,7 @@ function javaLab2() {
 				return;
 			}
 	*/
+				// actually choosing the weapon
 				let weapon;
 				switch (weaponType) {
 					case 'bare hands':
@@ -156,13 +172,14 @@ function javaLab2() {
 					case 'ak-47':
 						weapon = { type: 'ak-47', attack: 'shot' };
 						break;
+					// default is what happens if the user leaves the prompt blank
 					default:
 						weapon = { type: 'rocks', attack: 'hit' };
 						console.error("You're going to throw rocks at me? Fine, good luck");
 				}
 				return weapon;
 			}
-
+			//this is the damage calculations based on the weapon the user chose
 			function getDamage() {
 				let weaponDamage;
 				switch (weapon.type) {
@@ -185,12 +202,13 @@ function javaLab2() {
 				return weaponDamage;
 			}
 
+			// user chooses the level of difficulty.
 			function getArmor() {
 				let armorType = prompt(
 					'How much armor shall The Almight Grant wear into battle? You decide\nAll the Armor\nA little Extra\nNormal\nNone'
 				);
 				let grantHP = 10;
-
+				// this time not allowing cancel or a blank entry
 				if (armorType === null || armorType === '') {
 					alert('Oh come now, answer the question!');
 					getArmor();
@@ -211,13 +229,13 @@ function javaLab2() {
 				return;
 			}
 	*/
-
+				// actually choosing the armor
 				switch (armorType) {
 					case 'all the armor':
 						grantHP = 100;
 						return grantHP;
 					case 'a little extra':
-						grantHP = 20;
+						grantHP = 40;
 						return grantHP;
 					case 'normal':
 						grantHP = 10;
@@ -227,12 +245,13 @@ function javaLab2() {
 						return grantHP;
 
 					default:
-						grantHP = 40;
+						grantHP = 10;
 						return grantHP;
 				}
 			}
 		}
 	}
+	// call the start game function
 	startGame();
 }
 javaLab2();
