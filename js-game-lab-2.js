@@ -114,7 +114,9 @@ function javaLab2() {
 						);
 						break;
 					} else if (wins === 3 && userHP > 0) {
-						console.warn(`${userName} has defeated The Almighty Grant!`);
+						console.warn(
+							`There is no way he's getting back up this time. ${userName} has defeated The Almighty Grant!`
+						);
 						console.warn(randomVictoryQuote);
 						break;
 					}
