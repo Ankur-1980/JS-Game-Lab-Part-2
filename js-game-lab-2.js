@@ -71,6 +71,52 @@ function javaLab2() {
 			let randomDefeatQuote = defeatQuotes[Math.floor(Math.random() * defeatQuotes.length)];
 			let randomVictoryQuote = victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
 
+			const armorType = prompt(
+				'How much armor shall The Almighty Grant wear into battle? You decide\nAll the Armor\nA little Extra\nNormal\nNone'
+			);
+			function getArmor(armorType) {
+				let grantHP = 10;
+				// this time not allowing cancel or a blank entry
+				if (armorType === null || armorType === '') {
+					alert('Oh come now, answer the question!');
+					getArmor();
+					return;
+				}
+
+				armorType = armorType.toLowerCase();
+
+				/* I don't know what I'm doing wrong here
+			if (
+				armorType != 'all the armor' ||
+				armorType != 'a little extra' ||
+				armorType != 'normal' ||
+				armorType != 'none'
+			) {
+				alert("You're mumbling, could you speak a little more clearly");
+				getArmor();
+				return;
+			}
+	*/
+				// actually choosing the armor
+				switch (armorType) {
+					case 'all the armor':
+						grantHP = 100;
+						return grantHP;
+					case 'a little extra':
+						grantHP = 40;
+						return grantHP;
+					case 'normal':
+						grantHP = 10;
+						return grantHP;
+					case 'none':
+						grantHP = 1;
+						return grantHP;
+
+					default:
+						grantHP = 10;
+						return grantHP;
+				}
+			}
 			// loop for battle
 			while (userHP > 0 && wins < 3 && flight === false) {
 				// confirm instead of prompt for attack or retreat
@@ -105,7 +151,7 @@ function javaLab2() {
 				} else if (grantHP <= 0) {
 					console.error(`WEAK! You\'re going to have to do better than that. You\'ve only knocked me down`);
 					// small flaw in what I did. Grant's health only goes to 10 on teh second and third loops.
-					grantHP = 10;
+					grantHP = getArmor(armorType);
 					wins++;
 					// little piece of code to change a word to plural
 					if (wins > 1) {
@@ -203,52 +249,6 @@ function javaLab2() {
 			}
 
 			// user chooses the level of difficulty.
-			function getArmor() {
-				let armorType = prompt(
-					'How much armor shall The Almight Grant wear into battle? You decide\nAll the Armor\nA little Extra\nNormal\nNone'
-				);
-				let grantHP = 10;
-				// this time not allowing cancel or a blank entry
-				if (armorType === null || armorType === '') {
-					alert('Oh come now, answer the question!');
-					getArmor();
-					return;
-				}
-
-				armorType = armorType.toLowerCase();
-
-				/* I don't know what I'm doing wrong here
-			if (
-				armorType != 'all the armor' ||
-				armorType != 'a little extra' ||
-				armorType != 'normal' ||
-				armorType != 'none'
-			) {
-				alert("You're mumbling, could you speak a little more clearly");
-				getArmor();
-				return;
-			}
-	*/
-				// actually choosing the armor
-				switch (armorType) {
-					case 'all the armor':
-						grantHP = 100;
-						return grantHP;
-					case 'a little extra':
-						grantHP = 40;
-						return grantHP;
-					case 'normal':
-						grantHP = 10;
-						return grantHP;
-					case 'none':
-						grantHP = 1;
-						return grantHP;
-
-					default:
-						grantHP = 10;
-						return grantHP;
-				}
-			}
 		}
 	}
 	// call the start game function
